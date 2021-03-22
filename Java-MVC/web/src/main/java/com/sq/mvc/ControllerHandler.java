@@ -1,4 +1,4 @@
-package com.sq.web;
+package com.sq.mvc;
 
 public class ControllerHandler {
 }
