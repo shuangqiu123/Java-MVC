@@ -5,6 +5,7 @@ import com.sq.annotation.Component;
 import com.sq.annotation.Controller;
 import com.sq.annotation.Service;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
@@ -62,7 +63,33 @@ public class BeanContainer {
      * find search for autowired attributes and inject the dependency
      */
     private void initializeBeans() {
-        beanMap.values().forEach(bean -> inject(bean));
+        beanMap.values().forEach(bean -> {
+            inject(bean);
+            processPostConstruct(bean);
+
+        });
+
+    }
+
+    /**
+     * invoke method marked by post construct
+     * @param bean
+     */
+    private void processPostConstruct(Object bean) {
+        Class<?> beanClass = bean.getClass();
+
+        Stream.of(beanClass.getMethods())
+                .filter(method ->
+                        !Modifier.isStatic(method.getModifiers()) &&
+                                method.getParameterCount() == 0 &&
+                                method.isAnnotationPresent(PostConstruct.class)
+                ).forEach(method -> {
+            try {
+                method.invoke(bean);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     // dependency injection

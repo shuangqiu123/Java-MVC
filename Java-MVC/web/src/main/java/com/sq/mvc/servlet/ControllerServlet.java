@@ -93,7 +93,7 @@ public class ControllerServlet extends HttpServlet {
                     return;
 
                 } catch (Throwable t) {
-                    t.getCause().printStackTrace();
+                    t.printStackTrace();
                 }
             }
 
