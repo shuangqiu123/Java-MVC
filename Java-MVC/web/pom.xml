@@ -8,9 +8,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <groupId>com.sq</groupId>
     <artifactId>web</artifactId>
-
+    <version>1.0-SNAPSHOT</version>
     <dependencies>
 
 
@@ -77,6 +77,18 @@
         <artifactId>javax.el</artifactId>
         <version>3.0.1-b11</version>
     </dependency>
-</dependencies>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+    </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

@@ -9,8 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>mvc</module>
         <module>web</module>
+        <module>test</module>
     </modules>
     <properties>
         <revision>v1-SNAPSHOT</revision>

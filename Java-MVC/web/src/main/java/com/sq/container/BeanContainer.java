@@ -76,12 +76,14 @@ public class BeanContainer {
             return !Modifier.isStatic(mods) && field.isAnnotationPresent(Autowired.class);
         })
         .forEach(field -> {
-            Class<?> declaringClass = field.getDeclaringClass();
+            Class<?> declaringClass = field.getType();
             Object o = beanMap.get(declaringClass);
             // inject bean
             try {
+                field.setAccessible(true);
                 field.set(bean, o);
             } catch (IllegalAccessException e) {
+                e.getCause().printStackTrace();
             }
         });
     }
@@ -109,7 +111,7 @@ public class BeanContainer {
             throw new RuntimeException("cannot get resource");
         }
         try {
-            if (url.getProtocol().equalsIgnoreCase("zip")) {
+            if (url.getProtocol().equalsIgnoreCase("file")) {
                 File file = new File(url.getFile());
                 Path basePath = file.toPath();
                 return Files.walk(basePath)
@@ -143,7 +145,7 @@ public class BeanContainer {
      */
     private void instantiateBeans() {
         // load the class
-        Set<Class<?>> classes = this.loadClasses("com.sq");
+        Set<Class<?>> classes = this.loadClasses("com.sq.test");
 
         //nd classes with annotation in BEAN_ANNOTATIONS and instantiate them fi
         classes.stream().filter(clz -> {
@@ -156,6 +158,23 @@ public class BeanContainer {
         }).forEach(clz -> {
             beanMap.put(clz, createInstance(clz));
         });
+    }
+
+    public Object getBean(Class<?> beanClass) {
+        return beanMap.get(beanClass);
+    }
+
+    public Set<Object> getBeansByAnnotation(Class<? extends Annotation> annotation) {
+        return beanMap
+                .keySet()
+                .stream()
+                .filter(bean -> bean.isAnnotationPresent(annotation))
+                .map(bean -> beanMap.get(bean))
+                .collect(Collectors.toCollection(HashSet::new));
+    }
+
+    public int beanMapSize() {
+        return beanMap.size();
     }
 
     public void destroy() {
