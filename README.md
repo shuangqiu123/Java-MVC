@@ -20,7 +20,7 @@ A MVC framework which uses Inversion of Control and has achieved some functional
 - Search @Autowired fields in beans and inject the corresponding bean object
 - Search @PostConstruct methods in beans and invoke those methods
 
-### ControllerServlet
+### DispatcherServlet
 
 - Created at start (load-on-startup == 1) and maps all request path to this servlet
 - Created mapping between request path and the controller class, as well as mapping between request path and method

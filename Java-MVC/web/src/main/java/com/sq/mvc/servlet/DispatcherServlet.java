@@ -25,7 +25,7 @@ import org.apache.commons.lang3.StringUtils;
  * Controller servlet maps all the request except for static files into controller
  * load-on-startup = 1 will force it to load when the tomcat starts
  */
-public class ControllerServlet extends HttpServlet {
+public class DispatcherServlet extends HttpServlet {
 
     // map for request path to controller
     private Map<String, Object> controllersMapping = new HashMap<>();
@@ -36,7 +36,7 @@ public class ControllerServlet extends HttpServlet {
     private ServletContext servletContext;
 
     // logger
-    private Logger logger = Logger.getLogger(ControllerServlet.class.getName());
+    private Logger logger = Logger.getLogger(DispatcherServlet.class.getName());
 
 
     @Override

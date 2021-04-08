@@ -12,7 +12,7 @@
     <!--map all request except static files to controller servlet-->
     <servlet>
         <servlet-name>ControllerServlet</servlet-name>
-        <servlet-class>com.sq.mvc.servlet.ControllerServlet</servlet-class>
+        <servlet-class>com.sq.mvc.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
